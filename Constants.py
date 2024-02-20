@@ -1,0 +1,2 @@
+GLOBAL_TIME = 0
+ 
