@@ -12,6 +12,6 @@ class Events:
     def arrival_event(self,packet):
         print("Packet arrival event recieved of packet size: ",packet.size," at time= ",packet.arrival_time)
     def departure_event(slef,packet):
-        print("Packed departure event recieved of packet size: ",packet.size)
+        print("Packed departure event recieved of packet size: ",packet.size, " from ", packet.source, " to ",packet.dest)
        
             

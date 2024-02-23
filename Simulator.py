@@ -16,7 +16,7 @@ class Simulator:
         self.n = n
         self.m = m
         # self.run_event()
-        self.generate_events(100)
+        self.generate_events(1000)
         
     def generate_events(self,num_events):
         net = self.network_topology()
@@ -37,9 +37,11 @@ class Simulator:
             packet.arrival_time = arrival_time
             _event = Events.Events(arrival_time,dep_time,packet)
             self.schedular.schedule_event(_event)
+          #next event called after first event has been processed in order to keep a check of global time
+        while self.schedular.next_event():
             self.process_packet_arrival(_event, net,packet)
-            self.schedular.next_event() #next event called after first event has been processed in order to keep a check of global time
-    
+            self.schedular.next_event() 
+            
     def run_event(self):
                
         while True:
@@ -53,7 +55,6 @@ class Simulator:
         path=self.network.dijkstra(network,packet.source,packet.dest)
         
         if path:
-            event.departure_event(packet)
             print(f"Packet from {packet.source} to {packet.dest} will take path: {path}")
         else:
             print(f"No path found from {packet.source} to {packet.dest}")
@@ -72,6 +73,6 @@ if __name__ == "__main__":
     a=Schedular.Schedular()
     b= Network.Network()
     model = "B"
-    nodes=100
-    num_edges = 2
+    nodes=200
+    num_edges = 50
     c = Simulator(a,b,model,nodes,num_edges) 
